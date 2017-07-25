@@ -1,0 +1,12 @@
+@*(bookForm: Form[Book]) (implicit messages: Messages)
+
+* @import helper._
+
+* @main("Add new book") {
+*    @form(action=routes.BooksController.addNewBook()) {
+ *       @inputText(bookForm("Title"))
+  *      @inputText(bookForm("Author"))
+   *     <input type="submit" value="Submit">
+  *  }
+*}
+*@

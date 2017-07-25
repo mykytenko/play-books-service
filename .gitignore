@@ -1,2 +1,24 @@
 *.class
 *.log
+
+# Ignore Play! working directory #
+/logs/
+/project/project
+/project/target
+/target
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Package Files ###
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+.DS_Store
