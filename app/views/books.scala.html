@@ -1,0 +1,149 @@
+@(books: Seq[Book])
+
+@main("Books") {
+    <div class="container">
+
+        <h1>Books:</h1>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+
+                @books.map { book =>
+                    <tr>
+                        <td>@book.id</td>
+                        <td>@book.title</td>
+                        <td>@book.author</td>
+                        <td>
+                            <div>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal-@book.id">
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                    More info
+                                </button>
+
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal-@book.id">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    Edit
+                                </button>
+
+                                <button type="submit" class="btn btn-danger" form="removeForm-@book.id">
+                                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                                    Remove
+                                </button>
+
+                                <form action="/books/@book.id/delete" method="post" id="removeForm-@book.id"></form>
+
+                                @*<!-- Modal -->*@
+                                <div class="modal fade" id="editModal-@book.id" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Book</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/books/@book.id/edit" method="post">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="id-@book.id">ID</label>
+                                                        <input class="form-control" type="text" name="id" id="id-@book.id" value="@book.id"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="title-@book.id">Title</label>
+                                                        <input class="form-control" type="text" name="title" id="title-@book.id" value="@book.title"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="author-@book.id">Author</label>
+                                                        <input class="form-control" type="text" name="author" id="author-@book.id" value="@book.author"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button type="submit" class="btn btn-info">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="infoModal-@book.id" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Book Info</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="id-@book.id">ID: @book.id</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label" for="title-@book.id">
+                                                        Title: @book.title</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label" for="author-@book.id">
+                                                        Author: @book.author</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        @*{{#pages}}*@
+        @*<ul class="pager">*@
+        @*{{#prev}}*@
+        @*<li class="previous"><a href="/books?startIndex={{startIndex}}&limit={{limit}}">Previous</a></li>*@
+        @*{{/prev}}*@
+        @*{{#next}}*@
+        @*<li class="next"><a href="/books?startIndex={{startIndex}}&limit={{limit}}">Next</a></li>*@
+        @*{{/next}}*@
+        @*</ul>*@
+        @*{{/pages}}*@
+
+
+        @*<!-- ADD NEW BOOK -->*@
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#newModal">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            Add new book
+        </button>
+        <div class="modal fade" id="newModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">New Book</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/books" method="post">
+                            <div class="form-group">
+                                <label class="control-label" for="id">ID</label>
+                                <input class="form-control" type="text" name="id" id="id"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="title">Title</label>
+                                <input class="form-control" type="text" name="title" id="title"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="author">Author</label>
+                                <input class="form-control" type="text" name="author" id="author"/>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
